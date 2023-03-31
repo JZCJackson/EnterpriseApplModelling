@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page isELIgnored="false"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,12 +31,12 @@
 					type="number" class="form-control" id="price" name="price">
 			</div>
 			<div class="col-md-6">
-				<label for="description" class="form-label">Category</label> <input
-					type="text" class="form-control" id="category" name="category_id">
+				<label for="description" class="form-label">Category</label> 
+				<td><form:select class="form-control" path="command.category_id" items="${categories}" /></td>
 			</div>
 			<div class="col-md-6">
-				<label for="description" class="form-label">Supplier</label> <input
-					type="text" class="form-control" id="supplier" name="supplier_id">
+				<label for="description" class="form-label">Supplier</label> <td>
+				<form:select class="form-control" path="command.supplier_id" items="${suppliers}" /></td>
 			</div>
 			<div class="col-md-12">
 				<label for="description" class="form-label">Description</label> <textarea

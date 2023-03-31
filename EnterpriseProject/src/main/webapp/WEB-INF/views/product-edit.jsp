@@ -32,12 +32,12 @@
 				<form:input path="product.price" class="form-control" />
 			</div>
 			<div class="col-md-6">
-				<label for="description" class="form-label">Category</label>
-				<form:input path="product.category_id" class="form-control" />
+				<label for="description" class="form-label">Category</label> 
+				<td><form:select class="form-control" path="product.category_id" items="${categories}" /></td>
 			</div>
 			<div class="col-md-6">
-				<label for="description" class="form-label">Supplier</label>
-				<form:input path="product.supplier_id" class="form-control" />
+				<label for="description" class="form-label">Supplier</label> <td>
+				<form:select class="form-control" path="product.supplier_id" items="${suppliers}" /></td>
 			</div>
 			<div class="col-md-12">
 				<label for="description" class="form-label">Description</label>

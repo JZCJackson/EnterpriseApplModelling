@@ -1,10 +1,16 @@
 package com.project.entities.rcm;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name="products")
@@ -15,9 +21,30 @@ public class Product {
 	private String name;
 	private String description;
 	private float price;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "category_id", insertable = false, updatable = false)
+	@Fetch(FetchMode.JOIN)
+	private Categories category_data;
 	private int category_id;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "supplier_id", insertable = false, updatable = false)
+	@Fetch(FetchMode.JOIN)
+	private Suppliers supplier_data;
 	private int supplier_id;
 	
+	
+	public Suppliers getSupplier_data() {
+		return supplier_data;
+	}
+	public void setSupplier_data(Suppliers supplier_data) {
+		this.supplier_data = supplier_data;
+	}
+	public Categories getCategory_data() {
+		return category_data;
+	}
+	public void setCategory_data(Categories category_data) {
+		this.category_data = category_data;
+	}
 	public int getCategory_id() {
 		return category_id;
 	}

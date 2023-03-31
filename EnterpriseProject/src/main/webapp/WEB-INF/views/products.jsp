@@ -42,8 +42,8 @@
   <tr>
       <th scope="row">${product.product_id}</th>
       <td>${product.name}</td>
-      <td>${product.category_id}</td>
-      <td>${product.supplier_id}</td>
+      <td>${product.category_data.name}</td>
+      <td>${product.supplier_data.name}</td>
       <td>${product.description}</td>
       <td>${product.price}</td>
       <td><a href="edit/${product.product_id}"><button type="button" class="btn btn-primary">Edit</button></a></td>
