@@ -18,18 +18,23 @@ public class User {
 	private String password;
 	private String phone;
 	private String birthDate;
+	private String role;
 
 
-	public User(int user_id, String name, String lastName, String phone, String email, String password,
-			String birthDate) {
+	
+
+
+	public User(int user_id, String name, String lastName, String email, String password, String phone,
+			String birthDate, String role) {
 		super();
 		this.user_id = user_id;
 		this.name = name;
 		this.lastName = lastName;
-		this.phone = phone;
 		this.email = email;
 		this.password = password;
+		this.phone = phone;
 		this.birthDate = birthDate;
+		this.role = role;
 	}
 
 
@@ -107,6 +112,17 @@ public class User {
 	public void setBirthDate(String birthDate) {
 		this.birthDate = birthDate;
 	}
+
+	
+	public String getRole() {
+		return role;
+	}
+
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 
 	@Override
 	public String toString() {

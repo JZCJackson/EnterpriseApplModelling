@@ -45,7 +45,13 @@
 				<label for="birthDate" class="form-label">BirthDate</label> <input
 					type="text" class="form-control" id="birthDate" name="birthDate">
 			</div>
-			
+			<div class="col-md-12">
+			    <label for="role" class="form-label">Role</label>
+			    <select class="form-select" id="role" name="role">
+			        <option value="user">User</option>
+			        <option value="supplier">Supplier</option>
+			    </select>
+			</div>
 			<div class="col-md-4">
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</div>

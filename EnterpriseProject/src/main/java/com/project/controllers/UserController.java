@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
@@ -85,4 +87,47 @@ public class UserController {
 		}
 		return "profile";
 	}
+	
+	
+	@GetMapping("profile/edit/{id}")
+	public String editProfileForm(@PathVariable int id, Model model, HttpServletRequest request) {
+	    User sessionUser = (User) request.getSession().getAttribute("user");
+	    if (sessionUser == null) {
+	        return "redirect:/login";
+	    }
+	    Optional<User> userOptional = userRepository.findById(id);
+	    if (userOptional.isPresent()) {
+	        User user = userOptional.get();
+	        model.addAttribute("user", user);
+	        return "edit_profile";
+	    } else {
+	        return "redirect:/profile";
+	    }
+	}
+
+	@PostMapping("/profile/update")
+	public RedirectView updateProfile(@ModelAttribute("user") User user, HttpServletRequest request) {
+	    User updatedUser = userRepository.save(user);
+	    request.getSession().setAttribute("user", updatedUser); // Update the session attribute with the updated user information
+	    RedirectView redirectView = new RedirectView();
+	    redirectView.setUrl(request.getContextPath() + "/profile");
+	    return redirectView;
+	}
+
+
+	
+	@PostMapping("profile/delete/{id}")
+	public RedirectView deleteProfile(@PathVariable int id, HttpServletRequest request) {
+	    userRepository.deleteById(id);
+	    request.getSession().removeAttribute("user");
+	    RedirectView redirectView = new RedirectView();
+	    redirectView.setUrl(request.getContextPath() + "/login");
+	    return redirectView;
+	}
+
+	
+	
+
+	
+	
 }
