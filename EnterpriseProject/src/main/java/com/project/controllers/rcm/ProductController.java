@@ -46,6 +46,9 @@ public class ProductController {
 		if (user == null) {
 			return "redirect:/login";
 		}
+		if (!user.getRole().equals("supplier")) {
+			return "redirect:/profile";
+		}
 		List<Product> products = productRepository.findAll();
 		m.addAttribute("products", products);
         return "products";
@@ -56,6 +59,9 @@ public class ProductController {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user == null) {
 			return "redirect:/login";
+		}
+		if (!user.getRole().equals("supplier")) {
+			return "redirect:/profile";
 		}
 		List<Categories> categories = categoryRepository.findAll();
 		Map<Integer, String> catItems = new LinkedHashMap<Integer, String>();
@@ -80,6 +86,9 @@ public class ProductController {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user == null) {
 			return "redirect:/login";
+		}
+		if (!user.getRole().equals("supplier")) {
+			return "redirect:/profile";
 		}
 		List<Categories> categories = categoryRepository.findAll();
 		Map<Integer, String> catItems = new LinkedHashMap<Integer, String>();
