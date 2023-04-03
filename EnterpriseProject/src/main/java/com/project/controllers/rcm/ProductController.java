@@ -1,5 +1,7 @@
+// Define package for the ProductController
 package com.project.controllers.rcm;
 
+// Import necessary Java and project classes
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,30 +29,35 @@ import com.project.entities.rcm.Categories;
 import com.project.entities.rcm.Product;
 import com.project.entities.rcm.Suppliers;
 
+// Annotate the ProductController as a Spring Controller and set the request mapping
 @Controller
 @RequestMapping("/products")
 public class ProductController {
 
+	// Autowire the ProductRepository, CategoriesRepository, and SuppliersRepository
+	// for data access
 	@Autowired
 	ProductRepository productRepository;
-	
+
 	@Autowired
 	CategoriesRepository categoryRepository;
-	
+
 	@Autowired
 	SuppliersRepository suppliersRepository;
-	
+
+	// Define a GET method for listing all products
 	@GetMapping("/")
-    public String listProducts(HttpServletRequest request, Model m) {
+	public String listProducts(HttpServletRequest request, Model m) {
 		User user = (User) request.getSession().getAttribute("user");
 		if (user == null) {
 			return "redirect:/login";
 		}
 		List<Product> products = productRepository.findAll();
 		m.addAttribute("products", products);
-        return "products";
-    }
-	
+		return "products";
+	}
+
+	// Define a GET method for showing the new product form
 	@GetMapping("/new")
 	public String showform(HttpServletRequest request, Model m) {
 		User user = (User) request.getSession().getAttribute("user");
@@ -64,20 +71,21 @@ public class ProductController {
 		Map<Integer, String> catItems = new LinkedHashMap<Integer, String>();
 		for (int i = 0; i < categories.size(); i++) {
 			String tag = categories.get(i).getName();
-			catItems.put(categories.get(i).getCategory_id(),  tag);
+			catItems.put(categories.get(i).getCategory_id(), tag);
 		}
 		List<Suppliers> suppliers = suppliersRepository.findAll();
 		Map<Integer, String> supItems = new LinkedHashMap<Integer, String>();
 		for (int i = 0; i < suppliers.size(); i++) {
 			String tag = suppliers.get(i).getName();
-			supItems.put(suppliers.get(i).getSupplier_id(),  tag);
+			supItems.put(suppliers.get(i).getSupplier_id(), tag);
 		}
 		m.addAttribute("categories", catItems);
 		m.addAttribute("suppliers", supItems);
 		m.addAttribute("command", new Product());
 		return "product-new";
 	}
-	
+
+	// Define a GET method for editing a product by ID
 	@GetMapping("/edit/{id}")
 	public String edit(HttpServletRequest request, @PathVariable int id, Model m) {
 		User user = (User) request.getSession().getAttribute("user");
@@ -90,14 +98,15 @@ public class ProductController {
 		List<Categories> categories = categoryRepository.findAll();
 		Map<Integer, String> catItems = new LinkedHashMap<Integer, String>();
 		for (int i = 0; i < categories.size(); i++) {
+
 			String tag = categories.get(i).getName();
-			catItems.put(categories.get(i).getCategory_id(),  tag);
+			catItems.put(categories.get(i).getCategory_id(), tag);
 		}
 		List<Suppliers> suppliers = suppliersRepository.findAll();
 		Map<Integer, String> supItems = new LinkedHashMap<Integer, String>();
 		for (int i = 0; i < suppliers.size(); i++) {
 			String tag = suppliers.get(i).getName();
-			supItems.put(suppliers.get(i).getSupplier_id(),  tag);
+			supItems.put(suppliers.get(i).getSupplier_id(), tag);
 		}
 		m.addAttribute("categories", catItems);
 		m.addAttribute("suppliers", supItems);
@@ -105,19 +114,19 @@ public class ProductController {
 		m.addAttribute("product", product.get());
 		return "product-edit";
 	}
-	
+
 	@PostMapping("/update")
 	public String updateProduct(@ModelAttribute("product") Product product) {
 		productRepository.save(product);
 		return "redirect:/products/";
 	}
-	
+
 	@PostMapping("/save")
 	public String save(@ModelAttribute("product") Product product, BindingResult bindingResult) {
 		productRepository.save(product);
 		return "redirect:/products/";
 	}
-	
+
 	@GetMapping("/delete/{id}")
 	public String delete(@PathVariable int id) {
 		productRepository.deleteById(id);
