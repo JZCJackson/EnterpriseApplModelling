@@ -46,9 +46,6 @@ public class ProductController {
 		if (user == null) {
 			return "redirect:/login";
 		}
-		if (!user.getRole().equals("supplier")) {
-			return "redirect:/profile";
-		}
 		List<Product> products = productRepository.findAll();
 		m.addAttribute("products", products);
         return "products";

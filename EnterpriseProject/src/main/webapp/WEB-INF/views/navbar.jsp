@@ -19,11 +19,11 @@
 					<li class="nav-item"><a class="nav-link"
 						href="${pageContext.request.contextPath}/profile">Profile</a></li>
 					
-					<c:if test="${sessionScope.user.role.equals('supplier')}">
 					<li class="nav-item"><a class="nav-link"
 						href="${pageContext.request.contextPath}/products/">Products</a></li>
-					</c:if>
 					
+					<li class="nav-item"><a class="nav-link"
+						href="${pageContext.request.contextPath}/feedback/list">Feedbacks</a></li>
 					<li class="nav-item"><a class="nav-link"
 						href="${pageContext.request.contextPath}/logout">Logout</a></li>
 
